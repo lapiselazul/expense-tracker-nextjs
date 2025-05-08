@@ -20,6 +20,7 @@ import {
   ChartLegend,
   ChartLegendContent,
 } from "@/components/ui/chart";
+import { useExpenseStore } from "@/store/useExpenseStore";
 
 
 const chartConfig = {
@@ -49,9 +50,11 @@ const chartConfig = {
 } satisfies ChartConfig;
 
 
-export default function ExpenseChart({chartData}: {chartData:  Array<{ name: string, category: string, amount: number, fill: string }>}) {
-  const totalExpenses = chartData.reduce((acc, curr) => acc + curr.amount, 0);
-  
+export default function ExpenseChart() {
+  const todaysExpenses = useExpenseStore((state) => state.getTodaysExpenses());
+  const todaysTotalAmount = todaysExpenses.reduce((acc, curr) => acc + curr.amount, 0);
+  const chartData = todaysExpenses.map(expense => ({...expense, fill: `var(--color-${expense.category})`}));
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -91,7 +94,7 @@ export default function ExpenseChart({chartData}: {chartData:  Array<{ name: str
                           y={viewBox.cy}
                           className="fill-foreground text-xl sm:text-2xl font-bold"
                         >
-                          {totalExpenses.toLocaleString()}€
+                          €{todaysTotalAmount.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}

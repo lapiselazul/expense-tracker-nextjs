@@ -8,10 +8,11 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useExpenseStore } from "@/store/useExpenseStore";
 
 
-export default function ExpenseDetails({detailsData}: {detailsData: Array<{ name: string, category: string, amount: number, fill: string }>}) {
-  if (!detailsData) return (<p>No expenses exist for this time period.</p>);
+export default function ExpenseDetails() {
+  const detailsData = useExpenseStore((state) => state.getTodaysExpenses());
 
   return (
     <Table>

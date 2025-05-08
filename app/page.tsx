@@ -1,19 +1,10 @@
-"using client";
+"use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ExpenseChart from "@/components/ExpenseChart";
 import ExpenseDetails from "@/components/ExpenseDetails";
 
 export default function Home() {
-  const expensesData: Array<{ name: string, category: string, amount: number, fill: string }> = [
-    { name: "AB Basilopoulos", category: "groceries", amount: 250.5, fill: "var(--color-groceries)" },
-    { name: "Zara", category: "clothes", amount: 65, fill: "var(--color-clothes)" },
-    { name: "Village Cinemas", category: "entertainment", amount: 25, fill: "var(--color-entertainment)" },
-    { name: "Errikos Ntynan Hospital", category: "health", amount: 100, fill: "var(--color-health)" },
-    { name: "Visit Aunt in Australia", category: "travel", amount: 1000, fill: "var(--color-travel)" },
-  ];
-
-
   return (
     <div className="w-full max-w-full mx-auto p-4">
       <h1 className="text-xl font-bold mb-4">Expense Tracker</h1>
@@ -29,8 +20,8 @@ export default function Home() {
         <div className="w-full flex justify-center">
           <div className="w-full md:w-3/4 lg:w-1/2">
             <TabsContent value="daily" className="mt-4 p-4 border rounded-md">
-              <ExpenseChart chartData={expensesData} />
-              <ExpenseDetails detailsData={expensesData} />
+              <ExpenseChart />
+              <ExpenseDetails />
             </TabsContent>
 
             <TabsContent value="monthly" className="mt-4 p-4 border rounded-md">
