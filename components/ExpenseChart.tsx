@@ -1,6 +1,6 @@
 "use client"
 
-import * as React from "react"
+import { useState, useEffect } from "react"
 import { Label, Pie, PieChart } from "recharts"
 
 import {
@@ -21,7 +21,7 @@ import {
   ChartLegendContent,
 } from "@/components/ui/chart";
 import { useExpenseStore } from "@/store/useExpenseStore";
-
+import { DialogCreateExpense } from "./DialogCreateExpense";
 
 const chartConfig = {
   expenses: {
@@ -52,6 +52,25 @@ const chartConfig = {
 
 export default function ExpenseChart() {
   const todaysExpenses = useExpenseStore((state) => state.getTodaysExpenses());
+/*
+  Prevents an issue with Zustand and Next.js SSR:
+  The server render still happens even with "use client",
+  which conflicts with the client-side persistence (localStorage)
+*/
+  const [hydrated, setHydrated] = useState(false);
+
+    useEffect(() => {
+      setHydrated(true);
+    }, []);
+  
+    if (!hydrated) {
+      return null;
+    }
+
+  if (!todaysExpenses || todaysExpenses.length === 0) {
+    return <p>No data amigo</p>
+  }
+
   const todaysTotalAmount = todaysExpenses.reduce((acc, curr) => acc + curr.amount, 0);
   const chartData = todaysExpenses.map(expense => ({...expense, fill: `var(--color-${expense.category})`}));
 
@@ -114,7 +133,7 @@ export default function ExpenseChart() {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-       
+        <DialogCreateExpense />
       </CardFooter>
     </Card>
   );
