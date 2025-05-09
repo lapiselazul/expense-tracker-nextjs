@@ -1,0 +1,47 @@
+"use client";
+
+import { useState, useEffect } from "react";
+import { useShallow } from "zustand/react/shallow";
+import { useExpenseStore } from "@/store/useExpenseStore";
+import ExpenseChart from "./ExpenseChart";
+import { ChartData } from "@/types";
+
+export default function DailyTab() {
+  const todaysExpenses = useExpenseStore(useShallow((state) => state.getTodaysExpenses()));
+  /*
+    Prevents an issue with Zustand and Next.js SSR:
+    The server render still happens even with "use client",
+    which conflicts with the client-side persistence (localStorage)
+  */
+  const [hydrated, setHydrated] = useState(false);
+
+  useEffect(() => {
+    setHydrated(true);
+  }, []);
+
+  if (!hydrated) {
+    return null;
+  }
+
+  const todaysTotalAmount = todaysExpenses
+    ? todaysExpenses.reduce((acc, curr) => acc + curr.amount, 0)
+    : 0;
+  const chartData: ChartData = {};
+  todaysExpenses.forEach((expense) => {
+    if (chartData[expense.category]) {
+      chartData[expense.category].amount += expense.amount;
+    } else {
+      chartData[expense.category] = {
+        amount: expense.amount,
+        fill: `var(--color-${expense.category})`,
+        category: expense.category,
+      };
+    }
+  });
+
+  console.log(chartData);
+
+  return (
+    <ExpenseChart expenses={todaysExpenses} chartData={chartData} amount={todaysTotalAmount} />
+  );
+}

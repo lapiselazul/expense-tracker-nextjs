@@ -8,12 +8,12 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table"
+} from "@/components/ui/table";
 import { useExpenseStore } from "@/store/useExpenseStore";
-import { useShallow } from 'zustand/react/shallow'
+import { useShallow } from "zustand/react/shallow";
 
 export default function ExpenseDetails() {
-  const detailsData = useExpenseStore(useShallow(state => state.getTodaysExpenses()));
+  const detailsData = useExpenseStore(useShallow((state) => state.getTodaysExpenses()));
   /*
     Prevents an issue with Zustand and Next.js SSR:
     The server render still happens even with "use client",
@@ -34,7 +34,7 @@ export default function ExpenseDetails() {
       <Table>
         <TableHeader>
           <TableRow>
-          <TableHead className="w-[100px]">Id</TableHead>
+            <TableHead className="w-[100px]">Id</TableHead>
             <TableHead className="w-[100px]">Name</TableHead>
             <TableHead>Category</TableHead>
             <TableHead className="text-right">Amount</TableHead>

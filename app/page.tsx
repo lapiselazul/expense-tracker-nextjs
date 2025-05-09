@@ -1,7 +1,7 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ExpenseChart from "@/components/ExpenseChart";
+import ExpenseChart from "@/components/DailyTab";
 import ExpenseDetails from "@/components/ExpenseDetails";
 
 export default function Home() {
@@ -12,8 +12,12 @@ export default function Home() {
       <Tabs defaultValue="daily" className="w-full">
         <div className="flex justify-center w-full mb-4">
           <TabsList className="grid grid-cols-2 w-full md:w-1/2 lg:w-1/2">
-            <TabsTrigger value="daily" className="px-4 py-2">Daily Expenses</TabsTrigger>
-            <TabsTrigger value="monthly" className="px-4 py-2">Monthly Expenses</TabsTrigger>
+            <TabsTrigger value="daily" className="px-4 py-2">
+              Daily Expenses
+            </TabsTrigger>
+            <TabsTrigger value="monthly" className="px-4 py-2">
+              Monthly Expenses
+            </TabsTrigger>
           </TabsList>
         </div>
 
