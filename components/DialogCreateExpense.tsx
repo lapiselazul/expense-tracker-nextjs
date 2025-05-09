@@ -52,7 +52,8 @@ export function DialogCreateExpense() {
     setCategory(e.target.value as ExpenseCategory);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!name || !amount || !category || !date) {
       return;
     }
@@ -78,7 +79,7 @@ export function DialogCreateExpense() {
             Add a new expense, and click &quot;Submit Expense&quot; when you&apos;re done.
           </DialogDescription>
         </DialogHeader>
-        <div className="grid gap-4 py-4">
+        <form className="grid gap-4 py-4" onSubmit={handleSubmit}>
           <div className="grid grid-cols-4 items-center gap-4">
             <Label htmlFor="name" className="text-right">
               Name
@@ -103,6 +104,7 @@ export function DialogCreateExpense() {
               onChange={handleCategoryChange}
               className="col-span-3 border rounded px-3 py-2"
               required
+              aria-required="true"
             >
               <option value="" disabled>
                 Select expense category
@@ -133,12 +135,12 @@ export function DialogCreateExpense() {
             <Label htmlFor="date" className="text-right">
               Date
             </Label>
-            <DatePicker date={date} setDate={setDate} />
+            <DatePicker date={date} setDate={setDate} aria-required="true" />
           </div>
-          <Button type="submit" onClick={handleSubmit}>
+          <Button type="submit">
             Submit Expense
           </Button>
-        </div>
+        </form>
       </DialogContent>
     </Dialog>
   );
