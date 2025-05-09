@@ -25,9 +25,6 @@ export const useExpenseStore = create<ExpenseStore>()(
             { name: "Village Cinemas", category: "entertainment", amount: 25 },
             { name: "Errikos Ntynan Hospital", category: "health", amount: 100 },
             { name: "Visit Aunt in Australia", category: "travel", amount: 1000 },
-          ],
-          "09":  [
-            { name: "AB Basilopoulos", category: "groceries", amount: 250 },
           ]
         },
       },

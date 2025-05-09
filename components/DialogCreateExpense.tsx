@@ -16,6 +16,7 @@ import { Label } from "@/components/ui/label"
 import DatePicker from "./DatePicker";
 import { useExpenseStore } from "@/store/useExpenseStore";
 import { ExpenseCategory } from "@/types";
+import { useShallow } from 'zustand/react/shallow'
 
 
 export function DialogCreateExpense() {
@@ -31,7 +32,7 @@ export function DialogCreateExpense() {
   which conflicts with the client-side persistence (localStorage)
 */
   const [hydrated, setHydrated] = useState(false);
-  const createExpense = useExpenseStore(state => state.createExpense);
+  const createExpense = useExpenseStore(useShallow(state => state.createExpense));
 
   useEffect(() => {
     setHydrated(true);
@@ -63,7 +64,7 @@ export function DialogCreateExpense() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Edit Profile</Button>
+        <Button variant="default">Add New Expense</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
