@@ -2,6 +2,7 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DailyTab from "@/components/DailyTab";
+import MonthlyTab from "@/components/MonthlyTab";
 
 export default function Home() {
   return (
@@ -27,9 +28,7 @@ export default function Home() {
             </TabsContent>
 
             <TabsContent value="monthly" className="mt-4 p-4 border rounded-md">
-              <p>For later</p>
-              {/* <ExpenseChart chartData={chartData} />
-              <ExpenseDetails /> */}
+              <MonthlyTab />
             </TabsContent>
           </div>
         </div>

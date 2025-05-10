@@ -9,7 +9,7 @@ type ExpenseStore = {
     };
   };
   getDailyExpenses: (date: Date) => Array<Expense>;
-  getMonthlyExpenses: (month: string) => Array<Expense>;
+  getMonthlyExpenses: (date: Date) => Array<Expense>;
   createExpense: (
     name: string,
     category: ExpenseCategory,
@@ -32,8 +32,9 @@ export const useExpenseStore = create<ExpenseStore>()(
 
         return currentState.expenses[monthKey][dayKey];
       },
-      getMonthlyExpenses: (month: string) => {
-        const expensesForMonth = get().expenses[month];
+      getMonthlyExpenses: (date: Date) => {
+        const { monthKey } = createKeysFromDate(date);
+        const expensesForMonth = get().expenses[monthKey];
         return expensesForMonth
           ? Object.values(expensesForMonth).reduce((res, curr) => [...res, ...curr], [])
           : [];
