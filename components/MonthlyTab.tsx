@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useExpenseStore } from "@/store/useExpenseStore";
 import ExpenseChart from "./ExpenseChart";
@@ -11,11 +11,17 @@ import DatePicker from "./DatePicker";
 export default function DailyTab() {
   // needs to be "or undefined" because of Shadcn's Calendar DatePicker component to work
   const [date, setDate] = useState<Date | undefined>(new Date());
-  const monthlyExpenses = useExpenseStore(useShallow((state) => state.getMonthlyExpenses(date as Date)));
+  const monthlyExpenses = useExpenseStore(
+    useShallow((state) => state.getMonthlyExpenses(date as Date)),
+  );
+  const monthlyTotalAmount = useMemo(
+    () => monthlyExpenses.reduce((acc, curr) => acc + curr.amount, 0),
+    [monthlyExpenses],
+  );
   /*
-    Prevents an issue with Zustand and Next.js SSR:
-    The server render still happens even with "use client",
-    which conflicts with the client-side persistence (localStorage)
+    hydrated state and effect - prevent an issue with Zustand and Next.js SSR:
+    Because the server rendering will still happen in spite of "use client",
+    it conflicts with the client-side Zustand persistence (localStorage).
   */
   const [hydrated, setHydrated] = useState(false);
 
@@ -27,9 +33,6 @@ export default function DailyTab() {
     return null;
   }
 
-  const monthlyTotalAmount = monthlyExpenses
-    ? monthlyExpenses.reduce((acc, curr) => acc + curr.amount, 0)
-    : 0;
   const chartData: ChartData = {};
   monthlyExpenses.forEach((expense) => {
     if (chartData[expense.category]) {
@@ -43,11 +46,17 @@ export default function DailyTab() {
     }
   });
 
-
   return (
     <div>
-      <DatePicker date={date} setDate={setDate} isMonthlyPicker={true} />
-      <ExpenseChart expenses={monthlyExpenses} chartData={chartData} amount={monthlyTotalAmount} />
+      <div className="flex justify-center mb-4">
+        <DatePicker date={date} setDate={setDate} isMonthlyPicker={true} />
+      </div>
+      <ExpenseChart
+        expenses={monthlyExpenses}
+        chartData={chartData}
+        amount={monthlyTotalAmount}
+        isMonthly={true}
+      />
       <ExpenseDetails expenseData={monthlyExpenses} />
     </div>
   );

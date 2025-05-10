@@ -23,7 +23,7 @@ export default function ExpenseDetails({ expenseData }: { expenseData: Array<Exp
     setHydrated(true);
   }, []);
 
-  if (!hydrated) {
+  if (!hydrated || expenseData.length === 0) {
     return null;
   }
 

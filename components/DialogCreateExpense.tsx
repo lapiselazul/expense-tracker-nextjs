@@ -19,6 +19,8 @@ import { useShallow } from "zustand/react/shallow";
 
 export function DialogCreateExpense() {
   const [open, setOpen] = useState(false);
+
+  // For a small handrolled form like this (e.g. no use of formik or react-hook-form), it's a good enough solution.
   const [name, setName] = useState("");
   const [amount, setAmount] = useState("");
   const [category, setCategory] = useState<ExpenseCategory | null>(null);
@@ -139,9 +141,7 @@ export function DialogCreateExpense() {
             </Label>
             <DatePicker date={date} setDate={setDate} aria-required="true" />
           </div>
-          <Button type="submit">
-            Submit Expense
-          </Button>
+          <Button type="submit">Submit Expense</Button>
         </form>
       </DialogContent>
     </Dialog>

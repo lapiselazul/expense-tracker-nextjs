@@ -1,11 +1,4 @@
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { Label, Pie, PieChart } from "recharts";
 import { ChartData, Expense } from "@/types";
@@ -50,20 +43,21 @@ export default function ExpenseChart({
   expenses,
   chartData,
   amount,
+  isMonthly,
 }: {
   expenses: Array<Expense>;
   chartData: ChartData;
   amount: number;
+  isMonthly?: boolean;
 }) {
   return (
     <Card className="flex flex-col text-center">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart Daily Expenses</CardTitle>
-        <CardDescription>Today</CardDescription>
+        <CardTitle>{isMonthly ? "Monthly" : "Daily"} Expenses</CardTitle>
       </CardHeader>
       <CardContent className="flex-1 pb-0">
         {expenses.length === 0 ? (
-          <p>No expenses found</p>
+          <p>No expenses found.</p>
         ) : (
           <ChartContainer config={chartConfig} className="mx-auto aspect-square max-h-[250px]">
             <PieChart>

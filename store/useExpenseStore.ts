@@ -10,12 +10,7 @@ type ExpenseStore = {
   };
   getDailyExpenses: (date: Date) => Array<Expense>;
   getMonthlyExpenses: (date: Date) => Array<Expense>;
-  createExpense: (
-    name: string,
-    category: ExpenseCategory,
-    amount: number,
-    date: Date,
-  ) => void;
+  createExpense: (name: string, category: ExpenseCategory, amount: number, date: Date) => void;
 };
 
 export const useExpenseStore = create<ExpenseStore>()(

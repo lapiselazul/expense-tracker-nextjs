@@ -6,33 +6,39 @@ import MonthlyTab from "@/components/MonthlyTab";
 
 export default function Home() {
   return (
-    <div className="w-full max-w-full mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">Expense Tracker</h1>
+    <div className="flex flex-col min-h-screen">
+      <div className="w-full min-w-full mx-auto p-4 flex-grow">
+        <h1 className="text-xl text-center font-bold m-4">Expense Tracker</h1>
 
-      <Tabs defaultValue="daily" className="w-full">
-        <div className="flex justify-center w-full mb-4">
-          <TabsList className="grid grid-cols-2 w-full md:w-1/2 lg:w-1/2">
-            <TabsTrigger value="daily" className="px-4 py-2">
-              Daily Expenses
-            </TabsTrigger>
-            <TabsTrigger value="monthly" className="px-4 py-2">
-              Monthly Expenses
-            </TabsTrigger>
-          </TabsList>
-        </div>
-
-        <div className="w-full flex justify-center">
-          <div className="w-full md:w-3/4 lg:w-1/2">
-            <TabsContent value="daily" className="mt-4 p-4 border rounded-md">
-              <DailyTab />
-            </TabsContent>
-
-            <TabsContent value="monthly" className="mt-4 p-4 border rounded-md">
-              <MonthlyTab />
-            </TabsContent>
+        <Tabs defaultValue="daily" className="w-full">
+          <div className="flex justify-center w-full mb-4">
+            <TabsList className="grid grid-cols-2 w-full md:w-1/2 lg:w-1/2">
+              <TabsTrigger value="daily">Daily Expenses</TabsTrigger>
+              <TabsTrigger value="monthly">Monthly Expenses</TabsTrigger>
+            </TabsList>
           </div>
-        </div>
-      </Tabs>
+
+          <div className="w-full flex justify-center">
+            <div className="w-full md:w-3/4 lg:w-1/2">
+              <TabsContent value="daily" className="mt-4 p-4 border rounded-md">
+                <DailyTab />
+              </TabsContent>
+
+              <TabsContent value="monthly" className="mt-4 p-4 border rounded-md">
+                <MonthlyTab />
+              </TabsContent>
+            </div>
+          </div>
+        </Tabs>
+      </div>
+      <footer className="w-full p-4 text-center bg-blue-500 text-white">
+        <p>
+          &copy; {new Date().getFullYear()} Thanos Dimitriades &middot;
+          <a href="https://github.com/lapiselazul" className="underline hover:text-white ml-1">
+            GitHub
+          </a>
+        </p>
+      </footer>
     </div>
   );
 }

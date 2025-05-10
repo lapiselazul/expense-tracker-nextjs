@@ -18,6 +18,10 @@ type DatePickerProps = {
 
 function DatePicker({ date, setDate, isMonthlyPicker }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
+  const handleCalendarSelect = (newDate: Date | undefined) => {
+    setDate(newDate);
+    setOpen(false);
+  };
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -30,14 +34,23 @@ function DatePicker({ date, setDate, isMonthlyPicker }: DatePickerProps) {
           )}
         >
           <CalendarIcon />
-          {date ? (isMonthlyPicker ? format(date, "MMM yyyy") : format(date, "PPP")) : <span>Pick a date</span>}
+          {date ? (
+            isMonthlyPicker ? (
+              format(date, "MMM yyyy")
+            ) : (
+              format(date, "PPP")
+            )
+          ) : (
+            <span>Pick a date</span>
+          )}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
-        {isMonthlyPicker 
-          ? <MonthPicker onMonthSelect={setDate} selectedMonth={date} />
-          : <Calendar mode="single" selected={date} onSelect={(newDate) => { setDate(newDate); setOpen(false);}} initialFocus /> 
-        }
+        {isMonthlyPicker ? (
+          <MonthPicker onMonthSelect={handleCalendarSelect} selectedMonth={date} />
+        ) : (
+          <Calendar mode="single" selected={date} onSelect={handleCalendarSelect} initialFocus />
+        )}
       </PopoverContent>
     </Popover>
   );
