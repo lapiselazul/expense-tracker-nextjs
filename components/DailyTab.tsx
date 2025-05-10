@@ -46,7 +46,7 @@ export default function DailyTab() {
 
   return (
     <div>
-      <DatePicker date={date} setDate={setDate} />
+      <DatePicker date={date} setDate={setDate} isMonthlyPicker={false} />
       <ExpenseChart expenses={dailyExpenses} chartData={chartData} amount={todaysTotalAmount} />
       <ExpenseDetails expenseData={dailyExpenses} />
     </div>

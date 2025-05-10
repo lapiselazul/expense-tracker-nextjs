@@ -8,13 +8,15 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { MonthPicker } from "./ui/monthpicker";
 
 type DatePickerProps = {
   date: Date | undefined;
   setDate: React.Dispatch<React.SetStateAction<Date | undefined>>;
+  isMonthlyPicker?: boolean;
 };
 
-function DatePicker({ date, setDate }: DatePickerProps) {
+function DatePicker({ date, setDate, isMonthlyPicker }: DatePickerProps) {
   const [open, setOpen] = React.useState(false);
 
   return (
@@ -28,14 +30,14 @@ function DatePicker({ date, setDate }: DatePickerProps) {
           )}
         >
           <CalendarIcon />
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date ? (isMonthlyPicker ? format(date, "MMM yyyy") : format(date, "PPP")) : <span>Pick a date</span>}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
-        <Calendar mode="single" selected={date} onSelect={(newDate) => {
-          setDate(newDate);
-          setOpen(false);
-        }} initialFocus />
+        {isMonthlyPicker 
+          ? <MonthPicker onMonthSelect={setDate} selectedMonth={date} />
+          : <Calendar mode="single" selected={date} onSelect={(newDate) => { setDate(newDate); setOpen(false);}} initialFocus /> 
+        }
       </PopoverContent>
     </Popover>
   );

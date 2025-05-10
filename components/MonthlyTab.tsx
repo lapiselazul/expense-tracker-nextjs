@@ -5,8 +5,8 @@ import { useShallow } from "zustand/react/shallow";
 import { useExpenseStore } from "@/store/useExpenseStore";
 import ExpenseChart from "./ExpenseChart";
 import { ChartData } from "@/types";
-import DatePicker from "./DatePicker";
 import ExpenseDetails from "./ExpenseDetails";
+import DatePicker from "./DatePicker";
 
 export default function DailyTab() {
   // needs to be "or undefined" because of Shadcn's Calendar DatePicker component to work
@@ -46,7 +46,7 @@ export default function DailyTab() {
 
   return (
     <div>
-      <DatePicker date={date} setDate={setDate} />
+      <DatePicker date={date} setDate={setDate} isMonthlyPicker={true} />
       <ExpenseChart expenses={monthlyExpenses} chartData={chartData} amount={monthlyTotalAmount} />
       <ExpenseDetails expenseData={monthlyExpenses} />
     </div>
