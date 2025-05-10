@@ -5,6 +5,10 @@
 An offline-friendly, mobile-first expenses tracker, where a user can add and track their expenses
 across days and months.
 
+## Requirements
+
+- Node.js LTS (tested on v22.15.0)
+
 ## Installation
 
 1. Clone the repository
