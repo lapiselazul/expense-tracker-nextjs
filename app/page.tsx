@@ -1,8 +1,7 @@
 "use client";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import ExpenseChart from "@/components/DailyTab";
-import ExpenseDetails from "@/components/ExpenseDetails";
+import DailyTab from "@/components/DailyTab";
 
 export default function Home() {
   return (
@@ -24,8 +23,7 @@ export default function Home() {
         <div className="w-full flex justify-center">
           <div className="w-full md:w-3/4 lg:w-1/2">
             <TabsContent value="daily" className="mt-4 p-4 border rounded-md">
-              <ExpenseChart />
-              <ExpenseDetails />
+              <DailyTab />
             </TabsContent>
 
             <TabsContent value="monthly" className="mt-4 p-4 border rounded-md">

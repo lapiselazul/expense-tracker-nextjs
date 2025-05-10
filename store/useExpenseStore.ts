@@ -8,13 +8,13 @@ type ExpenseStore = {
       [day: string]: Array<Expense>;
     };
   };
-  getTodaysExpenses: () => Array<Expense>;
+  getDailyExpenses: (date: Date) => Array<Expense>;
   getMonthlyExpenses: (month: string) => Array<Expense>;
   createExpense: (
     name: string,
     category: ExpenseCategory,
     amount: number,
-    date: Date | undefined,
+    date: Date,
   ) => void;
 };
 
@@ -22,9 +22,9 @@ export const useExpenseStore = create<ExpenseStore>()(
   persist(
     (set, get) => ({
       expenses: {},
-      getTodaysExpenses: () => {
+      getDailyExpenses: (date: Date) => {
         const currentState = get();
-        const { monthKey, dayKey } = createKeysFromDate(new Date());
+        const { monthKey, dayKey } = createKeysFromDate(date);
 
         if (!currentState.expenses[monthKey] || !currentState.expenses[monthKey][dayKey]) {
           return [];
@@ -51,7 +51,7 @@ export const useExpenseStore = create<ExpenseStore>()(
         const createdExpense: Expense = {
           name,
           category,
-          amount,
+          amount: Number(amount.toFixed(2)),
         };
 
         const { monthKey, dayKey } = createKeysFromDate(date);

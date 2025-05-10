@@ -58,7 +58,7 @@ export default function ExpenseChart({
   return (
     <Card className="flex flex-col text-center">
       <CardHeader className="items-center pb-0">
-        <CardTitle>Pie Chart - Daily Expenses</CardTitle>
+        <CardTitle>Pie Chart Daily Expenses</CardTitle>
         <CardDescription>Today</CardDescription>
       </CardHeader>
       <CardContent className="flex-1 pb-0">

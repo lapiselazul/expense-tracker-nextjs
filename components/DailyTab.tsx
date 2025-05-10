@@ -5,9 +5,13 @@ import { useShallow } from "zustand/react/shallow";
 import { useExpenseStore } from "@/store/useExpenseStore";
 import ExpenseChart from "./ExpenseChart";
 import { ChartData } from "@/types";
+import DatePicker from "./DatePicker";
+import ExpenseDetails from "./ExpenseDetails";
 
 export default function DailyTab() {
-  const todaysExpenses = useExpenseStore(useShallow((state) => state.getTodaysExpenses()));
+  // needs to be "or undefined" because of Shadcn's Calendar DatePicker component to work
+  const [date, setDate] = useState<Date | undefined>(new Date());
+  const dailyExpenses = useExpenseStore(useShallow((state) => state.getDailyExpenses(date as Date)));
   /*
     Prevents an issue with Zustand and Next.js SSR:
     The server render still happens even with "use client",
@@ -23,11 +27,11 @@ export default function DailyTab() {
     return null;
   }
 
-  const todaysTotalAmount = todaysExpenses
-    ? todaysExpenses.reduce((acc, curr) => acc + curr.amount, 0)
+  const todaysTotalAmount = dailyExpenses
+    ? dailyExpenses.reduce((acc, curr) => acc + curr.amount, 0)
     : 0;
   const chartData: ChartData = {};
-  todaysExpenses.forEach((expense) => {
+  dailyExpenses.forEach((expense) => {
     if (chartData[expense.category]) {
       chartData[expense.category].amount += expense.amount;
     } else {
@@ -39,9 +43,12 @@ export default function DailyTab() {
     }
   });
 
-  console.log(chartData);
 
   return (
-    <ExpenseChart expenses={todaysExpenses} chartData={chartData} amount={todaysTotalAmount} />
+    <div>
+      <DatePicker date={date} setDate={setDate} />
+      <ExpenseChart expenses={dailyExpenses} chartData={chartData} amount={todaysTotalAmount} />
+      <ExpenseDetails date={date as Date} />
+    </div>
   );
 }

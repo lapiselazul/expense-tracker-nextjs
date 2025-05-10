@@ -12,8 +12,8 @@ import {
 import { useExpenseStore } from "@/store/useExpenseStore";
 import { useShallow } from "zustand/react/shallow";
 
-export default function ExpenseDetails() {
-  const detailsData = useExpenseStore(useShallow((state) => state.getTodaysExpenses()));
+export default function ExpenseDetails({ date }: { date: Date }) {
+  const detailsData = useExpenseStore(useShallow((state) => state.getDailyExpenses(date)));
   /*
     Prevents an issue with Zustand and Next.js SSR:
     The server render still happens even with "use client",

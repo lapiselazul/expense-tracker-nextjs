@@ -63,7 +63,7 @@ export function DialogCreateExpense() {
     setAmount("");
     setName("");
     setCategory(null);
-    setDate(undefined);
+    setDate(new Date());
     setOpen(false);
   };
 
@@ -91,6 +91,7 @@ export function DialogCreateExpense() {
               onChange={handleNameChange}
               className="col-span-3"
               required
+              aria-required="true"
             />
           </div>
 
@@ -129,6 +130,7 @@ export function DialogCreateExpense() {
               onChange={handleAmountChange}
               className="col-span-3"
               required
+              aria-required="true"
             />
           </div>
           <div className="grid grid-cols-4 items-center gap-4">
