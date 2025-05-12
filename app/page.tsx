@@ -6,7 +6,7 @@ import MonthlyTab from "@/components/MonthlyTab";
 
 export default function Home() {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-yellow-50">
       <div className="w-full min-w-full mx-auto p-4 flex-grow">
         <h1 className="text-xl text-center font-bold m-4">Expense Tracker</h1>
 
@@ -31,7 +31,7 @@ export default function Home() {
           </div>
         </Tabs>
       </div>
-      <footer className="w-full p-4 text-center bg-blue-500 text-white">
+      <footer className="w-full p-4 text-center bg-black text-white">
         <p>
           &copy; {new Date().getFullYear()} Thanos Dimitriades &middot;
           <a href="https://github.com/lapiselazul" className="underline hover:text-white ml-1">
