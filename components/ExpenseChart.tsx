@@ -51,7 +51,7 @@ export default function ExpenseChart({
   isMonthly?: boolean;
 }) {
   return (
-    <Card className="flex flex-col text-center">
+    <Card className="flex flex-col text-center bg-yellow-50">
       <CardHeader className="items-center pb-0">
         <CardTitle>{isMonthly ? "Monthly" : "Daily"} Expenses</CardTitle>
       </CardHeader>

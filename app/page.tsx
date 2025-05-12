@@ -11,7 +11,7 @@ export default function Home() {
         <h1 className="text-xl text-center font-bold m-4">Expense Tracker</h1>
 
         <Tabs defaultValue="daily" className="w-full">
-          <div className="flex justify-center w-full mb-4">
+          <div className="flex justify-center w-full mb-4 bg-yellow-50">
             <TabsList className="grid grid-cols-2 w-full md:w-1/2 lg:w-1/2">
               <TabsTrigger value="daily">Daily Expenses</TabsTrigger>
               <TabsTrigger value="monthly">Monthly Expenses</TabsTrigger>
