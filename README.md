@@ -21,6 +21,6 @@ Data are saved in local storage, so no account is required.
 ## Installation
 
 1. Clone the repository
-2. Install dependencies with `npm i --legacy-peer-deps` (required for react-day-picker)
+2. Install dependencies with `npm install`
 3. Run the server with `npm run dev`
 
