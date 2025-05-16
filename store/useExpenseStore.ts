@@ -21,18 +21,14 @@ export const useExpenseStore = create<ExpenseStore>()(
         const currentState = get();
         const { monthKey, dayKey } = createKeysFromDate(date);
 
-        if (!currentState.expenses[monthKey] || !currentState.expenses[monthKey][dayKey]) {
-          return [];
-        }
-
-        return currentState.expenses[monthKey][dayKey];
+        return currentState.expenses[monthKey] && currentState.expenses[monthKey][dayKey]
+          ? currentState.expenses[monthKey][dayKey]
+          : [];
       },
       getMonthlyExpenses: (date: Date) => {
         const { monthKey } = createKeysFromDate(date);
         const expensesForMonth = get().expenses[monthKey];
-        return expensesForMonth
-          ? Object.values(expensesForMonth).reduce((res, curr) => [...res, ...curr], [])
-          : [];
+        return expensesForMonth ? Object.values(expensesForMonth).flat() : [];
       },
       createExpense: (
         name: string,
@@ -51,7 +47,6 @@ export const useExpenseStore = create<ExpenseStore>()(
         };
 
         const { monthKey, dayKey } = createKeysFromDate(date);
-
         set((state) => {
           const updatedExpenses = { ...state.expenses };
 
