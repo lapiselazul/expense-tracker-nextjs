@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Dispatch, SetStateAction } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useExpenseStore } from "@/store/useExpenseStore";
 import ExpenseChart from "./ExpenseChart";
@@ -8,9 +8,9 @@ import { ChartData } from "@/types";
 import ExpenseDetails from "./ExpenseDetails";
 import DatePicker from "./DatePicker";
 
-export default function DailyTab() {
+type MonthlyTabProps = { date: Date | undefined, setDate: Dispatch<SetStateAction<Date | undefined>>};
+export default function MonthlyTab({ date, setDate }: MonthlyTabProps) {
   // needs to be "or undefined" because of Shadcn's Calendar DatePicker component to work
-  const [date, setDate] = useState<Date | undefined>(new Date());
   const monthlyExpenses = useExpenseStore(
     useShallow((state) => state.getMonthlyExpenses(date as Date)),
   );

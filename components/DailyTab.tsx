@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, Dispatch, SetStateAction } from "react";
 import { useShallow } from "zustand/react/shallow";
 import { useExpenseStore } from "@/store/useExpenseStore";
 import ExpenseChart from "./ExpenseChart";
@@ -8,9 +8,9 @@ import { ChartData } from "@/types";
 import DatePicker from "./DatePicker";
 import ExpenseDetails from "./ExpenseDetails";
 
-export default function DailyTab() {
+type DailyTabProps = { date: Date | undefined, setDate: Dispatch<SetStateAction<Date | undefined>>};
+export default function DailyTab({ date, setDate }: DailyTabProps) {
   // needs to be "or undefined" because of Shadcn's Calendar DatePicker component to work
-  const [date, setDate] = useState<Date | undefined>(new Date());
   const dailyExpenses = useExpenseStore(
     useShallow((state) => state.getDailyExpenses(date as Date)),
   );
@@ -25,7 +25,6 @@ export default function DailyTab() {
     it conflicts with the client-side Zustand persistence (localStorage).
   */
   const [hydrated, setHydrated] = useState(false);
-
   useEffect(() => {
     setHydrated(true);
   }, []);

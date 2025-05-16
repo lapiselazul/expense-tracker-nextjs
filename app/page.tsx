@@ -3,8 +3,13 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DailyTab from "@/components/DailyTab";
 import MonthlyTab from "@/components/MonthlyTab";
+import { useState } from "react";
 
 export default function Home() {
+  const [dayDate, setdayDate] = useState<Date | undefined>(new Date());
+    const [monthDate, setmonthDate] = useState<Date | undefined>(new Date());
+  
+  
   return (
     <div className="flex flex-col min-h-screen bg-yellow-50">
       <div className="w-full min-w-full mx-auto p-4 flex-grow">
@@ -21,11 +26,11 @@ export default function Home() {
           <div className="w-full flex justify-center">
             <div className="w-full md:w-3/4 lg:w-1/2">
               <TabsContent value="daily" className="mt-4 p-4 border rounded-md">
-                <DailyTab />
+                <DailyTab date={dayDate} setDate={setdayDate} />
               </TabsContent>
 
               <TabsContent value="monthly" className="mt-4 p-4 border rounded-md">
-                <MonthlyTab />
+                <MonthlyTab date={monthDate} setDate={setmonthDate} />
               </TabsContent>
             </div>
           </div>
